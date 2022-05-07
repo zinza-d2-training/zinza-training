@@ -8,8 +8,8 @@
     "start": "next start",
     "eslint": "next lint",
     "eslint:fix": "next lint --fix",
-    "prettier": "prettier --check \"pages/**/*.{ts,js,tsx}\" \"src/**/*.{ts,js,tsx}\"",
-    "prettier:fix": "prettier --write \"pages/**/*.{ts,js,tsx}\" \"src/**/*.{ts,js,tsx}\""
+    "prettier": "prettier --check \\\"src/pages/**/*.{ts,js,tsx}\\\" \\\"src/**/*.{ts,js,tsx}\\\"",
+    "prettier:fix": "prettier --write \\\"src/pages/**/*.{ts,js,tsx}\\\" \\\"src/**/*.{ts,js,tsx}\\\""
   },
   "dependencies": {
     "@emotion/cache": "^11.7.1",
@@ -18,18 +18,21 @@
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.6.4",
-    "next": "12.1.6",
-    "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "next": "12.1.4",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
     "@types/node": "17.0.31",
-    "@types/react": "18.0.8",
-    "@types/react-dom": "18.0.3",
+    "@types/react": "17.0.44",
+    "@types/react-dom": "17.0.16",
     "eslint": "8.14.0",
     "eslint-config-next": "12.1.6",
     "eslint-config-prettier": "^8.5.0",
     "prettier": "^2.6.2",
     "typescript": "4.6.4"
+  },
+  "resolutions": {
+    "@types/react": "17.0.44"
   }
 }
