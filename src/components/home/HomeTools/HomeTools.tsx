@@ -6,6 +6,8 @@ import ProtectIcon from 'src/assets/svg/svgexport-20.svg';
 import ArchiveIcon from 'src/assets/svg/svgexport-6.svg';
 import ExportIcon from 'src/assets/svg/svgexport-17.svg';
 import { HomeToolItem, HomeToolItemProps } from './HomeToolItem';
+import { useAppDispatch } from '../../../store';
+import { increment } from '../homeSlice';
 
 export const HomeTools = () => {
   const tools: HomeToolItemProps[] = [
@@ -38,6 +40,11 @@ export const HomeTools = () => {
     }
   ];
 
+  const dispatch = useAppDispatch();
+  const handleClick = () => {
+    dispatch(increment());
+  };
+
   return (
     <Stack
       flexDirection="column"
@@ -52,7 +59,7 @@ export const HomeTools = () => {
         <Grid container>
           {tools.map((tool) => (
             <Grid item lg={2} md={3} sm={4} key={tool.title}>
-              <HomeToolItem {...tool} />
+              <HomeToolItem {...tool} onClick={handleClick} />
             </Grid>
           ))}
         </Grid>
