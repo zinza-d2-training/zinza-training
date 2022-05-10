@@ -20,6 +20,8 @@
     "@mui/material": "^5.6.4",
     "@reduxjs/toolkit": "^1.8.1",
     "add": "^2.0.6",
+    "cookie": "^0.5.0",
+    "js-cookie": "^3.0.1",
     "next": "12.1.4",
     "octokit": "^1.7.1",
     "react": "17.0.2",
@@ -27,6 +29,8 @@
     "react-redux": "^8.0.1"
   },
   "devDependencies": {
+    "@types/cookie": "^0.5.1",
+    "@types/js-cookie": "^3.0.2",
     "@types/node": "17.0.31",
     "@types/react": "17.0.44",
     "@types/react-dom": "17.0.16",
