@@ -8,8 +8,8 @@
     "start": "next start",
     "eslint": "next lint",
     "eslint:fix": "next lint --fix",
-    "prettier": "prettier --check \\\"src/pages/**/*.{ts,js,tsx}\\\" \\\"src/**/*.{ts,js,tsx}\\\"",
-    "prettier:fix": "prettier --write \\\"src/pages/**/*.{ts,js,tsx}\\\" \\\"src/**/*.{ts,js,tsx}\\\""
+    "prettier": "prettier --check \"src/**/*.{ts,js,tsx}\"",
+    "prettier:fix": "prettier --write \"src/**/*.{ts,js,tsx}\""
   },
   "dependencies": {
     "@emotion/cache": "^11.7.1",

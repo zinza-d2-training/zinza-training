@@ -1,15 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createOAuthUserAuth } from '@octokit/auth-app';
 import { Octokit } from 'octokit';
-import Cookies from 'js-cookie';
-import { RootState } from 'src/store';
 
 export interface GithubState {
   githubClient: Octokit | null;
+  githubAccessToken: string | null;
 }
 
 const initialState: GithubState = {
-  githubClient: null
+  githubClient: null,
+  githubAccessToken: null
 };
 
 export const githubSlice = createSlice({
@@ -17,25 +17,26 @@ export const githubSlice = createSlice({
   initialState,
   reducers: {
     createClient: (state) => {
-      const accessToken = Cookies.get('github_access_token');
-      if (accessToken) {
-        if (!state.githubClient) {
-          state.githubClient = new Octokit({
+      if (state.githubAccessToken) {
+        return {
+          ...state,
+          githubClient: new Octokit({
             authStrategy: createOAuthUserAuth,
             auth: {
-              token: accessToken
+              token: state.githubAccessToken
             }
-          });
-        }
+          })
+        };
       } else {
-        state.githubClient = null;
+        return state;
       }
+    },
+    setGithubAccessToken: (state, payload: PayloadAction<string | null>) => {
+      state.githubAccessToken = payload.payload;
     }
   }
 });
 
-export const selectGithubClient = (state: RootState) => state.github.githubClient;
-
-export const { createClient } = githubSlice.actions;
+export const { createClient, setGithubAccessToken } = githubSlice.actions;
 
 export default githubSlice.reducer;
