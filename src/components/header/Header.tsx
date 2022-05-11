@@ -1,15 +1,21 @@
 import Link from 'next/link';
 import { Button, Stack } from '@mui/material';
 import { PrimaryMenuItem } from './PrimaryMenuItem';
-import Image, { ImageProps } from 'next/image';
+import Image from 'next/image';
 import { Box } from '@mui/system';
 import { useMemo } from 'react';
+import Cookies from 'js-cookie';
 
 export const Header = () => {
+  const githubAccessToken = useMemo(() => {
+    return Cookies.get('github_access_token');
+  }, []);
+
   const authLink = useMemo<string>(() => {
     const params = [
       `client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}`,
-      `redirect_uri=http://localhost:3000/auth/github/callback`
+      `redirect_uri=http://localhost:3000/auth/github/callback`,
+      `scope=repo`
     ];
     return `https://github.com/login/oauth/authorize?${params.join('&')}`;
   }, []);
@@ -38,11 +44,13 @@ export const Header = () => {
         <PrimaryMenuItem content="Vue Training" href="/training/vue" />
         <PrimaryMenuItem content="Angular Training(coming soon)" href="/training/angular" />
       </Stack>
-      <Stack flexDirection="row">
-        <Link href={authLink}>
-          <Button>Login</Button>
-        </Link>
-      </Stack>
+      {!githubAccessToken && (
+        <Stack flexDirection="row">
+          <Link href={authLink}>
+            <Button>Login</Button>
+          </Link>
+        </Stack>
+      )}
     </Stack>
   );
 };

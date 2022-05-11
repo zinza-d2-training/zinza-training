@@ -1,7 +1,7 @@
 import { Box } from '@mui/system';
 import { NextPageContext } from 'next';
 import { useEffect } from 'react';
-import { setCookie } from '../../../../utils/cookies';
+import { setCookie } from 'src/utils/cookies';
 import Cookies from 'js-cookie';
 
 interface AuthGithubAccessTokenResponse {
@@ -46,6 +46,7 @@ export async function getServerSideProps(context: NextPageContext) {
   });
 
   const data: AuthGithubAccessTokenResponse = await response.json();
+
   if (context.res) {
     setCookie(context.res, 'github_access_token', data.access_token);
   }

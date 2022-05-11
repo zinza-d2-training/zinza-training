@@ -13,5 +13,11 @@ export const setCookie = (
 ) => {
   const stringValue = typeof value === 'object' ? 'j:' + JSON.stringify(value) : String(value);
 
-  res.setHeader('Set-Cookie', serialize(name, stringValue, options));
+  if ('maxAge' in options) {
+    const maxAge = options?.maxAge ?? 0;
+    options.expires = new Date(Date.now() + maxAge);
+    options.maxAge = maxAge / 1000;
+  }
+
+  res.setHeader('Set-Cookie', serialize(name, stringValue, { path: '/', ...options }));
 };
