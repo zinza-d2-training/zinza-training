@@ -16,7 +16,7 @@ export const githubSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    createClient: (state) => {
+    createGithubClient: (state) => {
       if (state.githubAccessToken) {
         return {
           ...state,
@@ -37,6 +37,6 @@ export const githubSlice = createSlice({
   }
 });
 
-export const { createClient, setGithubAccessToken } = githubSlice.actions;
+export const { createGithubClient, setGithubAccessToken } = githubSlice.actions;
 
 export default githubSlice.reducer;
