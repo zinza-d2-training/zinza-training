@@ -8,7 +8,6 @@ export const GithubProvider: FC = (props) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log(accessTokenFromCookies);
     dispatch(setGithubAccessToken(accessTokenFromCookies));
     dispatch(createClient());
   }, [dispatch, accessTokenFromCookies]);

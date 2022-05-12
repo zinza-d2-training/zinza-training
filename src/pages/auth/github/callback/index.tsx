@@ -1,8 +1,6 @@
 import { Box } from '@mui/system';
 import { NextPageContext } from 'next';
-import { useEffect } from 'react';
 import { setCookie } from 'src/utils/cookies';
-import Cookies from 'js-cookie';
 
 interface AuthGithubAccessTokenResponse {
   access_token: string;
@@ -49,6 +47,8 @@ export async function getServerSideProps(context: NextPageContext) {
         permanent: true
       }
     };
+  } else if (!response.ok) {
+    throw new Error('Auth failed.');
   }
 
   return {
