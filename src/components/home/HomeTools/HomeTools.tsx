@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from 'src/store';
 import { increment } from '../homeSlice';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types';
+import { parseRepositoryTemplateConfig } from '../../Parsers/TemplateConfigParser';
 
 const tools: HomeToolItemProps[] = [
   {
@@ -48,6 +49,12 @@ export const HomeTools = () => {
   >([]);
 
   const items = useMemo<HomeToolItemProps[]>(() => {
+    let repos = [];
+    try {
+      for (const templateRepository of templateRepositories) {
+        const parsedRepo = parseRepositoryTemplateConfig('{}');
+      }
+    } catch (e) {}
     return [
       ...tools,
       ...templateRepositories.map((repo) => ({
