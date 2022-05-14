@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import { Button, Stack } from '@mui/material';
 import { PrimaryMenuItem } from './PrimaryMenuItem';
-import Image from 'next/image';
-import { Box } from '@mui/system';
 import { useMemo } from 'react';
 import Cookies from 'js-cookie';
 
@@ -14,7 +12,7 @@ export const Header = () => {
   const authLink = useMemo<string>(() => {
     const params = [
       `client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}`,
-      `redirect_uri=http://localhost:3000/auth/github/callback`,
+      `redirect_uri=${process.env.NEXT_PUBLIC_AUTH_GITHUB_CALLBACK}`,
       `scope=repo`
     ];
     return `https://github.com/login/oauth/authorize?${params.join('&')}`;
