@@ -17,7 +17,7 @@ export const HomeToolItem = ({ title, description, icon, ...props }: HomeToolIte
       sx={{ cursor: 'pointer', '&:hover': { background: '#f6f6f8' } }}
       {...props}>
       <Stack flexDirection="column" alignItems="flex-start">
-        <Image src={icon} alt="me" width="50" height="50" />
+        <Image src={icon} alt={title} width="50" height="50" />
         <Typography variant="h3" fontSize="20px" gutterBottom pt={2}>
           {title}
         </Typography>

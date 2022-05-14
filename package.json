@@ -8,8 +8,8 @@
     "start": "next start",
     "eslint": "next lint",
     "eslint:fix": "next lint --fix",
-    "prettier": "prettier --check \\\"src/pages/**/*.{ts,js,tsx}\\\" \\\"src/**/*.{ts,js,tsx}\\\"",
-    "prettier:fix": "prettier --write \\\"src/pages/**/*.{ts,js,tsx}\\\" \\\"src/**/*.{ts,js,tsx}\\\""
+    "prettier": "prettier --check \"src/**/*.{ts,js,tsx}\"",
+    "prettier:fix": "prettier --write \"src/**/*.{ts,js,tsx}\""
   },
   "dependencies": {
     "@emotion/cache": "^11.7.1",
@@ -20,12 +20,20 @@
     "@mui/material": "^5.6.4",
     "@reduxjs/toolkit": "^1.8.1",
     "add": "^2.0.6",
+    "cookie": "^0.5.0",
+    "js-cookie": "^3.0.1",
+    "lodash": "^4.17.21",
     "next": "12.1.4",
+    "octokit": "^1.7.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-redux": "^8.0.1"
+    "react-redux": "^8.0.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@types/cookie": "^0.5.1",
+    "@types/js-cookie": "^3.0.2",
+    "@types/lodash": "^4.14.182",
     "@types/node": "17.0.31",
     "@types/react": "17.0.44",
     "@types/react-dom": "17.0.16",
