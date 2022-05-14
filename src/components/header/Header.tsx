@@ -30,14 +30,12 @@ export const Header = () => {
       justifyContent="space-between"
       height="60px"
       component="header"
-      sx={{ background: 'white' }}
+      sx={{ background: 'white', zIndex: (theme) => theme.zIndex.modal }}
       boxShadow="0 3px 6px 0 rgb(50 50 50 / 30%)">
       <Stack flexDirection="row">
         <Link href="/">
           <Stack justifyContent="center" pl={2} sx={{ cursor: 'pointer' }}>
-            <Box position="relative" width="100%" height="100%">
-              <Image src="/logo.png" alt="home" layout="fill" objectFit="contain" />
-            </Box>
+            <img src="/logo.png" alt="home" height="36px" />
           </Stack>
         </Link>
         <PrimaryMenuItem content="React Training" href="/training/react" />
@@ -47,7 +45,16 @@ export const Header = () => {
       {!githubAccessToken && (
         <Stack flexDirection="row">
           <Link href={authLink}>
-            <Button>Login</Button>
+            <Button
+              sx={{
+                color: 'black',
+                width: '80px',
+                borderRadius: 0,
+                backgroundColor: 'rgb(243, 240, 236)',
+                '&:hover': { backgroundColor: 'rgb(56, 62, 69)', color: 'white' }
+              }}>
+              Login
+            </Button>
           </Link>
         </Stack>
       )}

@@ -5,12 +5,7 @@ import ReGenerateIcon from 'src/assets/svg/svgexport-18.svg';
 import ProtectIcon from 'src/assets/svg/svgexport-20.svg';
 import ArchiveIcon from 'src/assets/svg/svgexport-6.svg';
 import ExportIcon from 'src/assets/svg/svgexport-17.svg';
-import TemplateIcon from 'src/assets/svg/svgexport-14.svg';
 import { HomeToolItem, HomeToolItemProps } from './HomeToolItem';
-import { useAppDispatch, useAppSelector } from 'src/store';
-import { increment } from '../homeSlice';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types';
 
 const tools: HomeToolItemProps[] = [
   {
@@ -43,44 +38,6 @@ const tools: HomeToolItemProps[] = [
 ];
 
 export const HomeTools = () => {
-  const [templateRepositories, setTemplateRepositories] = useState<
-    RestEndpointMethodTypes['search']['repos']['response']['data']['items']
-  >([]);
-
-  const items = useMemo<HomeToolItemProps[]>(() => {
-    return [
-      ...tools,
-      ...templateRepositories.map((repo) => ({
-        title: repo.name,
-        description: repo.description ?? '',
-        icon: TemplateIcon,
-        repository: {
-          name: repo.name,
-          default_branch: repo.default_branch
-        }
-      }))
-    ];
-  }, [templateRepositories]);
-
-  const dispatch = useAppDispatch();
-
-  const githubClient = useAppSelector((state) => state.github.githubClient);
-
-  const fetchOrgRepositories = useCallback(async () => {
-    const result = await githubClient?.rest.search.repos({
-      q: `template in:name org:${process.env.NEXT_PUBLIC_ORG}`
-    });
-    setTemplateRepositories(result?.data?.items ?? []);
-  }, [githubClient?.rest.search]);
-
-  useEffect(() => {
-    fetchOrgRepositories().catch();
-  }, [fetchOrgRepositories]);
-
-  const handleClick = () => {
-    dispatch(increment());
-  };
-
   return (
     <Stack
       flexDirection="column"
@@ -93,9 +50,9 @@ export const HomeTools = () => {
       }}>
       <Box width={1} sx={{ background: 'white' }} mt={-10}>
         <Grid container>
-          {items.map((item) => (
-            <Grid item lg={2} md={3} sm={4} key={item.title}>
-              <HomeToolItem {...item} onClick={handleClick} />
+          {tools.map((tool) => (
+            <Grid item lg={2} md={3} sm={4} xs={12} key={tool.title}>
+              <HomeToolItem {...tool} />
             </Grid>
           ))}
         </Grid>
