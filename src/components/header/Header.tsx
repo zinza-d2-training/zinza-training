@@ -3,6 +3,8 @@ import { Button, Stack } from '@mui/material';
 import { PrimaryMenuItem } from './PrimaryMenuItem';
 import { useMemo } from 'react';
 import Cookies from 'js-cookie';
+import { Box } from '@mui/system';
+import Image from 'next/image';
 
 export const Header = () => {
   const githubAccessToken = useMemo(() => {
@@ -33,7 +35,9 @@ export const Header = () => {
       <Stack flexDirection="row">
         <Link href="/">
           <Stack justifyContent="center" pl={2} sx={{ cursor: 'pointer' }}>
-            <img src="/logo.png" alt="home" height="36px" />
+            <Box height="36px">
+              <Image src="/logo.png" width="120" height="36" alt="home" />
+            </Box>
           </Stack>
         </Link>
         <PrimaryMenuItem content="React Training" href="/training/react" />
