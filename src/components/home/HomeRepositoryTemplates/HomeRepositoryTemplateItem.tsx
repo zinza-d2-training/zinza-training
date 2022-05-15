@@ -9,16 +9,12 @@ import {
 } from '@mui/material';
 import Image from 'next/image';
 import { Box, BoxProps } from '@mui/system';
-import { useCallback, useEffect, useState } from 'react';
-import {
-  RepositoryTemplateConfig,
-  validateRepositoryTemplateConfig
-} from 'src/components/Parsers/TemplateConfigParser';
-import { githubRawContentUrl } from 'src/components/home/HomeTools/functions';
+import { useMemo } from 'react';
 import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types';
 import TemplateIcon from 'src/assets/svg/svgexport-14.svg';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
+import { useRepositoryTemplatesQuery } from 'src/api/repositories/templates';
 
 export interface HomeRepositoryTemplateItemProps extends BoxProps {
   color: string;
@@ -30,39 +26,14 @@ export const HomeRepositoryTemplateItem = ({
   repository,
   ...props
 }: HomeRepositoryTemplateItemProps) => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [repositoryTemplateConfig, setRepositoryTemplateConfig] =
-    useState<RepositoryTemplateConfig>();
+  const { data: repositoryTemplatesData, isLoading } = useRepositoryTemplatesQuery({
+    repositoryName: repository.name,
+    repositoryBranch: repository.default_branch
+  });
 
-  const fetchTemplateRepositoryConfig = useCallback(async () => {
-    if (!repository) {
-      return;
-    }
-    setLoading(true);
-    const result = await fetch(
-      githubRawContentUrl({
-        owner: process.env.NEXT_PUBLIC_ORG ?? '',
-        repositoryName: repository.name,
-        repositoryBranch: repository.default_branch,
-        filePath: 'training-template.json'
-      }),
-      {
-        method: 'GET',
-        cache: 'no-cache'
-      }
-    );
-    if (result.ok) {
-      const config = validateRepositoryTemplateConfig(await result.json());
-      if (config) {
-        setRepositoryTemplateConfig(config);
-      }
-    }
-    setLoading(false);
-  }, [repository]);
-
-  useEffect(() => {
-    fetchTemplateRepositoryConfig().catch();
-  }, [fetchTemplateRepositoryConfig, repository]);
+  const repositoryTemplateConfig = useMemo(() => {
+    return repositoryTemplatesData?.data;
+  }, [repositoryTemplatesData?.data]);
 
   return (
     <Box
@@ -80,8 +51,8 @@ export const HomeRepositoryTemplateItem = ({
         textDecoration: 'none'
       }}
       {...props}>
-      {loading && <CircularProgress />}
-      {!loading && (
+      {isLoading && <CircularProgress />}
+      {!isLoading && (
         <Stack
           flexDirection="column"
           justifyContent="space-between"

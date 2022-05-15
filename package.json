@@ -20,6 +20,7 @@
     "@mui/material": "^5.6.4",
     "@reduxjs/toolkit": "^1.8.1",
     "add": "^2.0.6",
+    "axios": "^0.27.2",
     "cookie": "^0.5.0",
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
@@ -27,6 +28,7 @@
     "octokit": "^1.7.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-query": "^3.39.0",
     "react-redux": "^8.0.1",
     "sharp": "^0.30.4",
     "yup": "^0.32.11"
