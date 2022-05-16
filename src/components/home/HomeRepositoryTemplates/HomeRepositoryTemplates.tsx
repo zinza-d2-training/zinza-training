@@ -2,27 +2,28 @@ import { Grid, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types';
-import { useAppSelector } from 'src/store';
 import {
   HomeRepositoryTemplateItem,
   HomeRepositoryTemplateItemProps
 } from 'src/components/home/HomeRepositoryTemplates/HomeRepositoryTemplateItem';
 import { sample } from 'lodash';
+import { createGithubAdminClient } from 'src/libs/octokit';
 
 const boxColors = ['#ee6c4d', '#8fbc5d', '#ff9d00', '#626870', '#ab6993', '#4a7aab'];
+
+const githubClient = createGithubAdminClient();
 
 export const HomeRepositoryTemplates = () => {
   const [templateRepositories, setTemplateRepositories] = useState<
     RestEndpointMethodTypes['search']['repos']['response']['data']['items']
   >([]);
-  const githubClient = useAppSelector((state) => state.github.githubClient);
 
   const fetchOrgRepositories = useCallback(async () => {
     const result = await githubClient?.rest.search.repos({
       q: `template in:name org:${process.env.NEXT_PUBLIC_ORG}`
     });
     setTemplateRepositories(result?.data?.items ?? []);
-  }, [githubClient?.rest.search]);
+  }, []);
 
   useEffect(() => {
     fetchOrgRepositories().catch();
