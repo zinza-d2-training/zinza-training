@@ -15,6 +15,7 @@ import { store } from 'src/store';
 import { GithubProvider } from 'src/components/auth/github/GithubProvider';
 import { ErrorBoundary } from 'src/components/layouts/ErrorBoundary';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import { setReactQueryLogger } from 'src/libs/react-query';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -32,6 +33,8 @@ export default function MyApp(props: AppPropsWithLayout) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const [queryClient] = React.useState(() => new QueryClient());
   const getLayout = Component.getLayout ?? ((page) => <AppLayout>{page}</AppLayout>);
+
+  setReactQueryLogger();
 
   return (
     <ErrorBoundary>
