@@ -22,7 +22,9 @@ export const fetchRepositoryTemplateConfig = ({
   );
 };
 
-export const useRepositoryTemplatesQuery = (variables: RepositoryTemplateConfigQueryVariables) => {
+export const useRepositoryTemplateConfigQuery = (
+  variables: RepositoryTemplateConfigQueryVariables
+) => {
   return useQuery({
     queryKey: ['repositoryTemplatesQuery', variables],
     queryFn: () => fetchRepositoryTemplateConfig(variables),
