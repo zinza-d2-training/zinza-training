@@ -14,7 +14,7 @@ import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods/d
 import TemplateIcon from 'src/assets/svg/svgexport-14.svg';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
-import { useRepositoryTemplatesQuery } from 'src/api/repositories/templates';
+import { useRepositoryTemplateConfigQuery } from 'src/api/repositories/templates/config';
 
 export interface HomeRepositoryTemplateItemProps extends BoxProps {
   color: string;
@@ -26,7 +26,7 @@ export const HomeRepositoryTemplateItem = ({
   repository,
   ...props
 }: HomeRepositoryTemplateItemProps) => {
-  const { data: repositoryTemplatesData, isLoading } = useRepositoryTemplatesQuery({
+  const { data: repositoryTemplatesData, isLoading } = useRepositoryTemplateConfigQuery({
     repositoryName: repository.name,
     repositoryBranch: repository.default_branch
   });
