@@ -15,6 +15,7 @@ import TemplateIcon from 'src/assets/svg/svgexport-14.svg';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
 import { useRepositoryTemplateConfigQuery } from 'src/api/repositories/templates/config';
+import NextLink from 'next/link';
 
 export interface HomeRepositoryTemplateItemProps extends BoxProps {
   color: string;
@@ -81,26 +82,26 @@ export const HomeRepositoryTemplateItem = ({
             </Typography>
           </Stack>
           <Stack flexDirection="row" justifyContent="flex-end" width={1}>
-            <Link
-              target="_blank"
-              href={repository.html_url}
-              display="flex"
-              justifyContent="center"
-              variant="body2"
-              rel="noopener"
-              sx={{ color: '#ffffff' }}>
-              <span>Use this template</span>
-              <Icon
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  width: '0.8em',
-                  height: '0.8em',
-                  ml: 1
-                }}>
-                <PlayCircleOutlinedIcon sx={{ width: '0.8em', height: '0.8em' }} />
-              </Icon>
-            </Link>
+            <NextLink href={`/templates/${repository.name}/generate`} passHref>
+              <Link
+                display="flex"
+                justifyContent="center"
+                variant="body2"
+                rel="noopener"
+                sx={{ color: '#ffffff' }}>
+                <span>Use this template</span>
+                <Icon
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    width: '0.8em',
+                    height: '0.8em',
+                    ml: 1
+                  }}>
+                  <PlayCircleOutlinedIcon sx={{ width: '0.8em', height: '0.8em' }} />
+                </Icon>
+              </Link>
+            </NextLink>
           </Stack>
         </Stack>
       )}

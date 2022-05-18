@@ -3,8 +3,11 @@ import CreateNewImg from 'src/assets/templates/generate/create-new.webp';
 import ExistedImg from 'src/assets/templates/generate/existed.webp';
 import Image from 'next/image';
 import { grey } from '@mui/material/colors';
+import { TemplateCreateDialog } from 'src/components/repositories/templates/generate/TemplateGenerateDialog';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 
-const ColorButton = styled(Button)(({ theme }) => ({
+export const DarkenButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(theme.palette.common.black),
   backgroundColor: theme.palette.common.black,
   '&:hover': {
@@ -13,6 +16,9 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 const TemplateGeneratePage = () => {
+  const [generating, setGenerating] = useState<boolean>(false);
+  const router = useRouter();
+
   return (
     <Stack direction="column" width={1} alignItems="center" mt="150px" spacing={10}>
       <Typography>Chọn cách bạn muốn áp dụng template:</Typography>
@@ -27,9 +33,13 @@ const TemplateGeneratePage = () => {
               Hãy cho chúng tôi biết về tên repository của bạn và tạo sau vài giây.
             </Typography>
           </Stack>
-          <ColorButton sx={{ borderRadius: '100px' }} variant="contained" size="large">
+          <DarkenButton
+            sx={{ borderRadius: '100px' }}
+            variant="contained"
+            size="large"
+            onClick={() => setGenerating(true)}>
             Tạo repository
-          </ColorButton>
+          </DarkenButton>
         </Stack>
         <Stack alignItems="stretch">
           <Divider orientation="vertical" flexItem sx={{ height: 1 }}>
@@ -52,11 +62,18 @@ const TemplateGeneratePage = () => {
               với template.
             </Typography>
           </Stack>
-          <ColorButton sx={{ borderRadius: '100px' }} variant="contained" size="large">
+          <DarkenButton sx={{ borderRadius: '100px' }} variant="contained" size="large">
             Đồng bộ repository
-          </ColorButton>
+          </DarkenButton>
         </Stack>
       </Stack>
+      {generating && (
+        <TemplateCreateDialog
+          open={true}
+          onClose={() => setGenerating(false)}
+          repositoryName={String(router.query.id)}
+        />
+      )}
     </Stack>
   );
 };

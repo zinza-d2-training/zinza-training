@@ -11,8 +11,6 @@ import { useRepositoryTemplatesQuery } from 'src/api/repositories/templates';
 
 const boxColors = ['#ee6c4d', '#8fbc5d', '#ff9d00', '#626870', '#ab6993', '#4a7aab'];
 
-const githubClient = createGithubAdminClient();
-
 export const HomeRepositoryTemplates = () => {
   const { data: templateRepositoriesData } = useRepositoryTemplatesQuery();
 
