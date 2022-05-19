@@ -11,10 +11,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const githubAdminClient = createGithubAdminClient();
   try {
     const reposResponse = await githubAdminClient?.rest.search.repos({
-      q: `template in:name org:${process.env.NEXT_PUBLIC_ORG}`
+      q: `template-- in:name org:${process.env.NEXT_PUBLIC_ORG}`
     });
     createApiSuccessResponse<RepositoriesTemplatesResponse>({
-      data: reposResponse.data.items,
+      data: reposResponse.data.items.filter((template) => template.name !== 'training-template'),
       res
     });
   } catch (e) {
