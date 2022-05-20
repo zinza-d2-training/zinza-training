@@ -15,14 +15,14 @@ export const HomeRepositoryTemplates = () => {
 
   const items = useMemo<HomeRepositoryTemplateItemProps[]>(() => {
     return (
-      templateRepositoriesData?.data?.data?.map((repo) => {
+      templateRepositoriesData?.data?.map((repo) => {
         return {
           repository: repo,
           color: sample(boxColors) ?? ''
         };
       }) ?? []
     );
-  }, [templateRepositoriesData?.data?.data]);
+  }, [templateRepositoriesData?.data]);
 
   return (
     <Stack
