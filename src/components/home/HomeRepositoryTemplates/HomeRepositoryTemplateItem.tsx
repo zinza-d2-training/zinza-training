@@ -38,8 +38,6 @@ export const HomeRepositoryTemplateItem = ({
 
   return (
     <Box
-      component={Link}
-      href={`/templates/${repository.name}`}
       display="flex"
       width={1}
       minHeight="240px"

@@ -6,7 +6,6 @@ import {
   HomeRepositoryTemplateItemProps
 } from 'src/components/home/HomeRepositoryTemplates/HomeRepositoryTemplateItem';
 import { sample } from 'lodash';
-import { createGithubAdminClient } from 'src/libs/octokit';
 import { useRepositoryTemplatesQuery } from 'src/api/repositories/templates';
 
 const boxColors = ['#ee6c4d', '#8fbc5d', '#ff9d00', '#626870', '#ab6993', '#4a7aab'];

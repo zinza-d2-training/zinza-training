@@ -2,14 +2,12 @@ import Link from 'next/link';
 import { Button, Stack } from '@mui/material';
 import { PrimaryMenuItem } from './PrimaryMenuItem';
 import { useMemo } from 'react';
-import Cookies from 'js-cookie';
 import { Box } from '@mui/system';
 import Image from 'next/image';
+import { useAppSelector } from 'src/store';
 
 export const Header = () => {
-  const githubAccessToken = useMemo(() => {
-    return Cookies.get('github_access_token');
-  }, []);
+  const githubAccessToken = useAppSelector((state) => state.github.githubAccessToken);
 
   const authLink = useMemo<string>(() => {
     const params = [
