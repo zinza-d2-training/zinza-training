@@ -13,7 +13,7 @@ const initialState: GithubState = {
 };
 
 export const githubSlice = createSlice({
-  name: 'counter',
+  name: 'github',
   initialState,
   reducers: {
     createGithubClient: (state) => {

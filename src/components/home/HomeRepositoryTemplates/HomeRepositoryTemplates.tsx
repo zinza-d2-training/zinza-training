@@ -6,7 +6,6 @@ import {
   HomeRepositoryTemplateItemProps
 } from 'src/components/home/HomeRepositoryTemplates/HomeRepositoryTemplateItem';
 import { sample } from 'lodash';
-import { createGithubAdminClient } from 'src/libs/octokit';
 import { useRepositoryTemplatesQuery } from 'src/api/repositories/templates';
 
 const boxColors = ['#ee6c4d', '#8fbc5d', '#ff9d00', '#626870', '#ab6993', '#4a7aab'];
@@ -16,14 +15,14 @@ export const HomeRepositoryTemplates = () => {
 
   const items = useMemo<HomeRepositoryTemplateItemProps[]>(() => {
     return (
-      templateRepositoriesData?.data?.data?.map((repo) => {
+      templateRepositoriesData?.data?.map((repo) => {
         return {
           repository: repo,
           color: sample(boxColors) ?? ''
         };
       }) ?? []
     );
-  }, [templateRepositoriesData?.data?.data]);
+  }, [templateRepositoriesData?.data]);
 
   return (
     <Stack
