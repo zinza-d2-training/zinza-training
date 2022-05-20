@@ -43,7 +43,6 @@ export const HomeRepositoryTemplateItem = ({
       minHeight="240px"
       p={4}
       sx={{
-        cursor: 'pointer',
         backgroundColor: color,
         borderRadius: '8px',
         boxShadow: '0 5px 25px 0 hsl(230deg 9% 52% / 15%)',
@@ -72,9 +71,18 @@ export const HomeRepositoryTemplateItem = ({
                 </IconButton>
               </Tooltip>
             </Stack>
-            <Typography variant="h3" fontSize="20px" gutterBottom pt={2} color="white">
-              {repositoryTemplateConfig?.name ?? repository.name}
-            </Typography>
+            <NextLink href={`/templates/${repository.name}`} passHref>
+              <Typography
+                underline="hover"
+                component={Link}
+                variant="h3"
+                fontSize="20px"
+                gutterBottom
+                pt={2}
+                sx={{ color: '#ffffff' }}>
+                {repositoryTemplateConfig?.name ?? repository.name}
+              </Typography>
+            </NextLink>
             <Typography variant="body2" color="white" gutterBottom>
               {repositoryTemplateConfig?.description ?? repository.description}
             </Typography>
@@ -82,10 +90,10 @@ export const HomeRepositoryTemplateItem = ({
           <Stack flexDirection="row" justifyContent="flex-end" width={1}>
             <NextLink href={`/templates/${repository.name}/generate`} passHref>
               <Link
+                underline="hover"
                 display="flex"
                 justifyContent="center"
                 variant="body2"
-                rel="noopener"
                 sx={{ color: '#ffffff' }}>
                 <span>Use this template</span>
                 <Icon
