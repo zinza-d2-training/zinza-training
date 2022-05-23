@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 
 COPY . .
-RUN chmod +x /docker-entrypoint.sh
+RUN chmod +x docker-entrypoint.sh
 
 ENV NODE_ENV=development
 ENV NEXT_TELEMETRY_DISABLED 1
