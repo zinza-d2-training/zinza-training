@@ -4,12 +4,12 @@
 set -e
 
 # Start services
-if [ ${APP_ENV} = "production" ]; then
-    yarn start
+if [ "${APP_ENV}" == "local" ]; then
+  yarn install
+  yarn run dev
+
 else
-    # Bundle install
-    yarn install
-    yarn run dev
+  node server.js
 fi
 
 # Finally call command issued to the docker service
