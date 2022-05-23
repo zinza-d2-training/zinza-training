@@ -7,10 +7,7 @@ set -e
 if [ "${APP_ENV}" == "local" ]; then
   yarn install
   yarn run dev
-
+  exec "$@"
 else
-  node server.js
+  exec "$@"
 fi
-
-# Finally call command issued to the docker service
-exec "$@"

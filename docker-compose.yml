@@ -8,6 +8,6 @@ services:
     image: zinza-training
     ports:
       - '3000:3000'
-    volumes:
-      - .:/app
-    command: sh ./docker-entrypoint.sh
+#    volumes:
+#      - .:/app
+#    command: sh ./docker-entrypoint.sh
