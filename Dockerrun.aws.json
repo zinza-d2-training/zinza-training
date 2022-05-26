@@ -1,0 +1,20 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+  ],
+  "containerDefinitions": [
+    {
+      "name": "zinza-training-client",
+      "image": "109846724001.dkr.ecr.ap-southeast-1.amazonaws.com/zinza-training:latest",
+      "environment": [
+      ],
+      "memoryReservation": 256,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 3000
+        }
+      ]
+    }
+  ]
+}
