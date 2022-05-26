@@ -7,14 +7,6 @@
       "name": "zinza-training-client",
       "image": "109846724001.dkr.ecr.ap-southeast-1.amazonaws.com/zinza-training:latest",
       "environment": [
-        {
-          "name": "HOST",
-          "value": "0.0.0.0"
-        },
-        {
-          "name": "APP_ENV",
-          "value": "production"
-        }
       ],
       "memoryReservation": 256,
       "portMappings": [
