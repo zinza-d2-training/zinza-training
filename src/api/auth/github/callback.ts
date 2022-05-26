@@ -12,7 +12,7 @@ export const fetchGithubAccessToken = async (payload: { code: string }) => {
     'https://github.com/login/oauth/access_token',
     {
       client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
-      client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
+      client_secret: process.env.CLIENT_SECRET,
       code: payload.code,
       redirect_uri: process.env.NEXT_PUBLIC_AUTH_GITHUB_CALLBACK
     },
