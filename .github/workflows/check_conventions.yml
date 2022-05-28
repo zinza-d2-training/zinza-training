@@ -1,4 +1,4 @@
-name: ci
+name: Check conventions
 on:
   pull_request:
   push:
@@ -12,10 +12,10 @@ jobs:
       - name: Read .nvmrc
         run: echo ::set-output name=NVMRC::$(cat .nvmrc)
         id: nvmProcfile
-      - name: Use Node.js ${{ steps.nvm.outputs.NVMRC }}
+      - name: Use Node.js ${{ steps.nvmProcfile.outputs.NVMRC }}
         uses: actions/setup-node@v3
         with:
-          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+          node-version: '${{ steps.nvmProcfile.outputs.NVMRC }}'
           cache: 'yarn'
       - name: Install JS dependencies
         run: yarn install --frozen-lockfile --prefer-offline
