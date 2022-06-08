@@ -1,6 +1,4 @@
-import '../../styles/globals.css';
 import type { ReactElement, ReactNode } from 'react';
-import * as React from 'react';
 import Head from 'next/head';
 import App, { AppContext, AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
@@ -17,6 +15,7 @@ import { ErrorBoundary } from 'src/components/layouts/ErrorBoundary';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { setReactQueryLogger } from 'src/libs/react-query';
 import { CookieProvider } from 'src/components/cookie/CookieProvider';
+import { useState } from 'react';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -33,7 +32,7 @@ type AppPropsWithLayout = AppProps & {
 
 function MyApp(props: AppPropsWithLayout) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, cookie } = props;
-  const [queryClient] = React.useState(() => new QueryClient());
+  const [queryClient] = useState(() => new QueryClient());
   const getLayout = Component.getLayout ?? ((page) => <AppLayout>{page}</AppLayout>);
 
   setReactQueryLogger();

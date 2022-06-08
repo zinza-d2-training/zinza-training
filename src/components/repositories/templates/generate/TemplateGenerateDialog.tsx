@@ -21,11 +21,11 @@ import { TemplateCreateFormData } from 'src/components/repositories/templates/ge
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types';
-import { useAppSelector } from 'src/store';
-import { sortBy } from 'lodash';
+import sortBy from 'lodash/sortBy';
 import { ProcessingProps } from 'src/components/repositories/templates/generate/Processing';
 import { delay } from 'src/utils/common';
 import { useNotify } from 'src/components/notification/hooks';
+import { useOctokitRequest } from 'src/libs/octokit';
 
 export enum TemplateCreateStep {
   OnBoarding = 'OnBoarding',
@@ -49,7 +49,6 @@ export const TemplateCreateDialog = ({
     RestEndpointMethodTypes['issues']['listForRepo']['response']['data']
   >([]);
   const [created, setCreated] = useState<boolean>(false);
-  const githubClient = useAppSelector((store) => store.github.githubClient);
 
   const handleClose: DialogProps['onClose'] = (event, reason) => {
     if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
@@ -74,15 +73,16 @@ export const TemplateCreateDialog = ({
     }
   });
 
+  const { requestWithAuth } = useOctokitRequest();
+
   const fetchIssues = useCallback(async () => {
-    if (githubClient) {
-      const _issues = await githubClient.rest.issues.listForRepo({
-        owner: process.env.NEXT_PUBLIC_ORG ?? '',
-        repo: repositoryName
-      });
-      setIssues(sortBy(_issues.data, 'id'));
-    }
-  }, [githubClient, repositoryName]);
+    const _issues = await requestWithAuth('GET /repos/{owner}/{repo}/issues', {
+      owner: process.env.NEXT_PUBLIC_ORG ?? '',
+      repo: repositoryName
+    });
+    setIssues(sortBy(_issues.data, 'id'));
+  }, [repositoryName, requestWithAuth]);
+
   useEffect(() => {
     fetchIssues().catch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,11 +92,11 @@ export const TemplateCreateDialog = ({
   const [creatingProcess, setCreatingProcess] = useState<ProcessingProps['contents']>([]);
 
   const onSubmit = async ({ issueIds, repositoryName }: TemplateCreateFormData) => {
-    if (githubClient && !created) {
+    if (!created) {
       try {
         const _issues = issues.filter((issue) => issueIds.includes(issue.id));
         setCreating(true);
-        const createdRepository = await githubClient.rest.repos.createInOrg({
+        const createdRepository = await requestWithAuth('POST /orgs/{org}/repos', {
           org: process.env.NEXT_PUBLIC_ORG ?? '',
           name: repositoryName
         });
@@ -106,7 +106,7 @@ export const TemplateCreateDialog = ({
           <Typography key={state.length}>{`Created repository ${repositoryName}`}</Typography>
         ]);
         for (const issue of _issues) {
-          await githubClient.rest.issues.create({
+          await requestWithAuth('', {
             owner: process.env.NEXT_PUBLIC_ORG ?? '',
             repo: repositoryName,
             title: issue.title,

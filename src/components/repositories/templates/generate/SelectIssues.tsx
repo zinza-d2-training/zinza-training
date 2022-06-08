@@ -1,7 +1,7 @@
 import { Checkbox, FormControlLabel, Stack, StackProps } from '@mui/material';
 import { useMemo } from 'react';
 import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types';
-import { uniq } from 'lodash';
+import uniq from 'lodash/uniq';
 
 export interface SelectIssuesProps extends Omit<StackProps, 'onChange'> {
   value: number[];
