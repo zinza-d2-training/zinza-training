@@ -1,39 +1,34 @@
-import { SxProps } from '@mui/system';
-import { Stack, Typography } from '@mui/material';
-import { Theme } from '@mui/material/styles';
-import Link from 'next/link';
+import { Link, LinkProps } from '@mui/material';
+import NextLink from 'next/link';
 
-interface Props {
+interface Props extends Omit<LinkProps, 'component'> {
   href: string;
   content: string;
+  active?: boolean;
 }
 
-const classes: SxProps<Theme> = {
-  content: {
-    '&:hover': {
-      color: 'red'
-    }
-  }
-};
-
-export const PrimaryMenuItem = ({ content, href }: Props) => {
+export const PrimaryMenuItem = ({ content, href, active, ...props }: Props) => {
   return (
-    <Link href={href}>
-      <Stack
-        height={1}
-        alignItems="center"
-        justifyContent="center"
-        px={2}
+    <NextLink href={href} passHref>
+      <Link
+        textTransform="uppercase"
+        underline="none"
+        fontWeight="500"
+        display="flex"
         sx={{
+          color: active ? 'red' : '#000000',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 1,
+          px: 2,
           cursor: 'pointer',
           '&:hover': {
             color: 'red'
           }
-        }}>
-        <Typography textTransform="uppercase" fontWeight="500">
-          {content}
-        </Typography>
-      </Stack>
-    </Link>
+        }}
+        {...props}>
+        {content}
+      </Link>
+    </NextLink>
   );
 };
