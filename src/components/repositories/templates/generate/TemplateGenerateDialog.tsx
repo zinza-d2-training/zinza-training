@@ -1,9 +1,18 @@
-import { Dialog, DialogContent, DialogProps, IconButton, Stack } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogProps,
+  IconButton,
+  Link,
+  Stack,
+  Typography
+} from '@mui/material';
 import Image from 'next/image';
 import BackgroundImage from 'src/assets/templates/generate/create-dialog-img.webp';
 import { Box } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
-import { useForm, FormProvider } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { StepOnBoarding } from 'src/components/repositories/templates/generate/StepOnBoarding';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { StepNaming } from 'src/components/repositories/templates/generate/StepNaming';
@@ -14,6 +23,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types';
 import { useAppSelector } from 'src/store';
 import { sortBy } from 'lodash';
+import { ProcessingProps } from 'src/components/repositories/templates/generate/Processing';
+import { delay } from 'src/utils/common';
+import { useNotify } from 'src/components/notification/hooks';
 
 export enum TemplateCreateStep {
   OnBoarding = 'OnBoarding',
@@ -31,11 +43,11 @@ export const TemplateCreateDialog = ({
   repositoryName,
   ...props
 }: TemplateGenerateDialogProps) => {
+  const { notify, notifyError } = useNotify();
   const [currentStep, setCurrentStep] = useState<TemplateCreateStep>(TemplateCreateStep.OnBoarding);
   const [issues, setIssues] = useState<
     RestEndpointMethodTypes['issues']['listForRepo']['response']['data']
   >([]);
-  const [loading, setLoading] = useState<boolean>(false);
   const [created, setCreated] = useState<boolean>(false);
   const githubClient = useAppSelector((store) => store.github.githubClient);
 
@@ -64,13 +76,11 @@ export const TemplateCreateDialog = ({
 
   const fetchIssues = useCallback(async () => {
     if (githubClient) {
-      setLoading(true);
       const _issues = await githubClient.rest.issues.listForRepo({
         owner: process.env.NEXT_PUBLIC_ORG ?? '',
         repo: repositoryName
       });
       setIssues(sortBy(_issues.data, 'id'));
-      setLoading(false);
     }
   }, [githubClient, repositoryName]);
   useEffect(() => {
@@ -79,28 +89,58 @@ export const TemplateCreateDialog = ({
   }, []);
 
   const [creating, setCreating] = useState<boolean>(false);
-  const [creatingProcess, setCreatingProcess] = useState<string[]>([]);
+  const [creatingProcess, setCreatingProcess] = useState<ProcessingProps['contents']>([]);
 
   const onSubmit = async ({ issueIds, repositoryName }: TemplateCreateFormData) => {
     if (githubClient && !created) {
-      const _issues = issues.filter((issue) => issueIds.includes(issue.id));
-      setCreating(true);
-      await githubClient.rest.repos.createInOrg({
-        org: process.env.NEXT_PUBLIC_ORG ?? '',
-        name: repositoryName
-      });
-      setCreatingProcess((state) => [...state, `Created repository ${repositoryName}`]);
-      for (const issue of _issues) {
-        await githubClient.rest.issues.create({
-          owner: process.env.NEXT_PUBLIC_ORG ?? '',
-          repo: repositoryName,
-          title: issue.title,
-          body: issue.body ?? undefined
+      try {
+        const _issues = issues.filter((issue) => issueIds.includes(issue.id));
+        setCreating(true);
+        const createdRepository = await githubClient.rest.repos.createInOrg({
+          org: process.env.NEXT_PUBLIC_ORG ?? '',
+          name: repositoryName
         });
-        setCreatingProcess((state) => [...state, `Created issue ${issue.title}`]);
+        await delay();
+        setCreatingProcess((state) => [
+          ...state,
+          <Typography key={state.length}>{`Created repository ${repositoryName}`}</Typography>
+        ]);
+        for (const issue of _issues) {
+          await githubClient.rest.issues.create({
+            owner: process.env.NEXT_PUBLIC_ORG ?? '',
+            repo: repositoryName,
+            title: issue.title,
+            body: issue.body ?? undefined
+          });
+          setCreatingProcess((state) => [
+            ...state,
+            <Typography key={state.length}>{`Created issue ${issue.title}`}</Typography>
+          ]);
+          await delay();
+        }
+        await delay();
+        setCreatingProcess((state) => [
+          ...state,
+          <Stack key={state.length} spacing={3} alignItems="center">
+            <Typography>
+              Your repository is created at:{' '}
+              <Link href={createdRepository.data.html_url} underline="hover" target="_blank">
+                {createdRepository.data.html_url}
+              </Link>
+            </Typography>
+            <Box>
+              <Button variant="contained" color="secondary" onClick={() => setCreatingProcess([])}>
+                Close
+              </Button>
+            </Box>
+          </Stack>
+        ]);
+        setCreating(false);
+        setCreated(true);
+        notify({ content: 'Created succeed!' });
+      } catch (e) {
+        notifyError();
       }
-      setCreating(false);
-      setCreated(true);
     }
   };
 
@@ -166,8 +206,32 @@ export const TemplateCreateDialog = ({
       fullWidth>
       <DialogContent sx={{ padding: 0 }}>
         <Stack direction="row" height={1}>
-          <Image src={BackgroundImage} alt="" height="100%" width={482} objectFit="cover" />
+          <Box
+            height={1}
+            sx={(theme) => ({
+              display: 'none',
+              width: '100%',
+              [theme.breakpoints.up('sm')]: () => ({
+                display: 'block',
+                width: '482px'
+              }),
+              '&>span': {
+                display: 'block !important',
+                height: ' 100% !important'
+              }
+            })}>
+            <Image
+              unoptimized
+              src={BackgroundImage}
+              alt=""
+              height="100%"
+              width="100%"
+              objectFit="cover"
+            />
+          </Box>
           <Stack
+            px={5}
+            py={3}
             direction="column"
             justifyContent="center"
             alignItems="center"
@@ -178,9 +242,17 @@ export const TemplateCreateDialog = ({
                 <CloseIcon />
               </IconButton>
             </Box>
-            <Box width={482}>
+            <Box
+              sx={(theme) => ({
+                width: '100%',
+                [theme.breakpoints.up('sm')]: () => ({
+                  width: '482px'
+                })
+              })}>
               <FormProvider {...methods}>
-                <form onSubmit={methods.handleSubmit(onSubmit)}>{renderedStep}</form>
+                <Box component="form" onSubmit={methods.handleSubmit(onSubmit)}>
+                  {renderedStep}
+                </Box>
               </FormProvider>
             </Box>
           </Stack>

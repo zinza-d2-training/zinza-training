@@ -44,10 +44,13 @@ export const HomeTools = () => {
       alignItems="center"
       width={1}
       pb={7}
-      px={8}
-      sx={{
-        background: 'rgb(243, 240, 236)'
-      }}>
+      sx={(theme) => ({
+        background: 'rgb(243, 240, 236)',
+        px: 3,
+        [theme.breakpoints.up('sm')]: {
+          px: 8
+        }
+      })}>
       <Box width={1} sx={{ background: 'white' }} mt={-10}>
         <Grid container>
           {tools.map((tool) => (

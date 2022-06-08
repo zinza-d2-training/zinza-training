@@ -12,6 +12,7 @@ export const HomeToolItem = ({ title, description, icon, ...props }: HomeToolIte
   return (
     <Box
       width={1}
+      height={1}
       minHeight="240px"
       p={4}
       sx={{ cursor: 'pointer', '&:hover': { background: '#f6f6f8' } }}

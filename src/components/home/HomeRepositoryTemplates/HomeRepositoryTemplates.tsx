@@ -30,9 +30,13 @@ export const HomeRepositoryTemplates = () => {
       alignItems="center"
       width={1}
       p={8}
-      sx={{
-        background: '#f2f3f8'
-      }}>
+      sx={(theme) => ({
+        background: '#f2f3f8',
+        px: 3,
+        [theme.breakpoints.up('sm')]: {
+          px: 8
+        }
+      })}>
       <Box width={1}>
         <Typography variant="h2" sx={{ fontWeight: 500, fontSize: 32 }} align="center">
           Start building solutions that generate, sync training repositories

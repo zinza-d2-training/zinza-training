@@ -6,6 +6,10 @@ import { grey } from '@mui/material/colors';
 import LoadingButton from '@mui/lab/LoadingButton';
 import BackupRoundedIcon from '@mui/icons-material/BackupRounded';
 import { DarkenButton } from 'src/pages/templates/[id]/generate';
+import {
+  Processing,
+  ProcessingProps
+} from 'src/components/repositories/templates/generate/Processing';
 
 export const DarkenLoadingButton = styled(LoadingButton)(({ theme }) => ({
   color: theme.palette.getContrastText(theme.palette.common.black),
@@ -21,7 +25,7 @@ export interface StepOnBoardingProps {
   repositoryName: string;
   issues: RestEndpointMethodTypes['issues']['listForRepo']['response']['data'];
   creating: boolean;
-  creatingProcess: string[];
+  creatingProcess: ProcessingProps['contents'];
   created: boolean;
   reCreate: () => void;
 }
@@ -41,52 +45,52 @@ export const StepIssues = ({
   } = useFormContext();
 
   return (
-    <Stack width={1} direction="column" spacing={5} alignItems="flex-start">
-      <Typography variant="h5">Chọn các issues:</Typography>
-      <Controller
-        name="issueIds"
-        control={control}
-        render={({ field: { ref, ...methods } }) => <SelectIssues {...methods} issues={issues} />}
-      />
-      <Stack direction="column">
-        {creatingProcess.map((text) => (
-          <Typography key={text}>{text}</Typography>
-        ))}
-      </Stack>
-      <Stack direction="row" spacing={3}>
-        <Button
-          disabled={creating || !isValid}
-          variant="contained"
-          size="large"
-          color="secondary"
-          sx={{ borderRadius: '100px' }}
-          onClick={onPrevious}>
-          Quay lại
-        </Button>
-        {created && (
-          <DarkenButton
-            onClick={reCreate}
-            type="submit"
+    <>
+      <Stack width={1} direction="column" spacing={5} alignItems="flex-start">
+        <Typography variant="h5">Chọn các issues:</Typography>
+        <Controller
+          name="issueIds"
+          control={control}
+          render={({ field: { ref, ...methods } }) => (
+            <SelectIssues {...methods} issues={issues} height="50vh" overflow="auto" />
+          )}
+        />
+        <Stack direction={{ sm: 'row', xs: 'column-reverse' }} spacing={3} width={1}>
+          <Button
+            disabled={creating || !isValid}
             variant="contained"
             size="large"
-            sx={{ borderRadius: '100px' }}>
-            Create another
-          </DarkenButton>
-        )}
-        {!created && (
-          <DarkenLoadingButton
-            disabled={!isValid}
-            loading={creating}
-            loadingPosition="end"
-            endIcon={<BackupRoundedIcon />}
-            type="submit"
-            variant="contained"
-            size="large"
-            sx={{ borderRadius: '100px' }}>
-            Submit
-          </DarkenLoadingButton>
-        )}
+            color="secondary"
+            sx={{ borderRadius: '100px' }}
+            onClick={onPrevious}>
+            Quay lại
+          </Button>
+          {created && (
+            <DarkenButton
+              onClick={reCreate}
+              type="submit"
+              variant="contained"
+              size="large"
+              sx={{ borderRadius: '100px' }}>
+              Create another
+            </DarkenButton>
+          )}
+          {!created && (
+            <DarkenLoadingButton
+              disabled={!isValid}
+              loading={creating}
+              loadingPosition="end"
+              endIcon={<BackupRoundedIcon />}
+              type="submit"
+              variant="contained"
+              size="large"
+              sx={{ borderRadius: '100px' }}>
+              Submit
+            </DarkenLoadingButton>
+          )}
+        </Stack>
       </Stack>
-    </Stack>
+      {!!creatingProcess.length && <Processing contents={creatingProcess} />}
+    </>
   );
 };
