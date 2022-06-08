@@ -1,4 +1,4 @@
-import { Button, Divider, Stack, styled, Typography } from '@mui/material';
+import { Button, Divider, Grid, Stack, styled, Typography } from '@mui/material';
 import CreateNewImg from 'src/assets/templates/generate/create-new.webp';
 import ExistedImg from 'src/assets/templates/generate/existed.webp';
 import Image from 'next/image';
@@ -22,51 +22,73 @@ const TemplateGeneratePage = () => {
   return (
     <Stack direction="column" width={1} alignItems="center" mt="150px" spacing={10}>
       <Typography>Chọn cách bạn muốn áp dụng template:</Typography>
-      <Stack direction="row" spacing={10}>
-        <Stack direction="column" alignItems="center" spacing={4} maxWidth="380px" my={5}>
-          <Image src={CreateNewImg} alt="create new" width={240} height={154} />
-          <Stack direction="column" alignItems="center">
-            <Typography variant="h5" gutterBottom>
-              Tạo repository mới
-            </Typography>
-            <Typography align="center">
-              Hãy cho chúng tôi biết về tên repository của bạn và tạo sau vài giây.
-            </Typography>
+      <Grid container>
+        <Grid item sm={5} xs={12}>
+          <Stack
+            sx={(theme) => ({
+              alignItems: 'center',
+              [theme.breakpoints.up('sm')]: {
+                alignItems: 'flex-end'
+              }
+            })}>
+            <Stack direction="column" alignItems="center" spacing={4} maxWidth="380px" my={5}>
+              <Image src={CreateNewImg} alt="create new" width={240} height={154} />
+              <Stack direction="column" alignItems="center">
+                <Typography variant="h5" gutterBottom>
+                  Tạo repository mới
+                </Typography>
+                <Typography align="center">
+                  Hãy cho chúng tôi biết về tên repository của bạn và tạo sau vài giây.
+                </Typography>
+              </Stack>
+              <DarkenButton
+                sx={{ borderRadius: '100px' }}
+                variant="contained"
+                size="large"
+                onClick={() => setGenerating(true)}>
+                Tạo repository
+              </DarkenButton>
+            </Stack>
           </Stack>
-          <DarkenButton
-            sx={{ borderRadius: '100px' }}
-            variant="contained"
-            size="large"
-            onClick={() => setGenerating(true)}>
-            Tạo repository
-          </DarkenButton>
-        </Stack>
-        <Stack alignItems="stretch">
-          <Divider orientation="vertical" flexItem sx={{ height: 1 }}>
-            Hoặc
-          </Divider>
-        </Stack>
-        <Stack
-          direction="column"
-          alignItems="center"
-          spacing={4}
-          maxWidth="380px"
-          sx={{ marginTop: '40px!important', marginBottom: '40px!important' }}>
-          <Image src={ExistedImg} alt="existing repository" width={240} height={154} />
-          <Stack direction="column" alignItems="center">
-            <Typography variant="h5" gutterBottom>
-              Đồng bộ với repository có sẵn
-            </Typography>
-            <Typography align="center">
-              Hãy để trình tạo logo hỗ trợ AI của chúng tôi đọc và đồng bộ những phần còn thiếu so
-              với template.
-            </Typography>
+        </Grid>
+        <Grid item sm={2} xs={12}>
+          <Stack height={1} justifyContent="center">
+            <Divider orientation="vertical" flexItem sx={{ height: 1 }}>
+              Hoặc
+            </Divider>
           </Stack>
-          <DarkenButton sx={{ borderRadius: '100px' }} variant="contained" size="large">
-            Đồng bộ repository
-          </DarkenButton>
-        </Stack>
-      </Stack>
+        </Grid>
+        <Grid item sm={5} xs={12}>
+          <Stack
+            sx={(theme) => ({
+              alignItems: 'center',
+              [theme.breakpoints.up('sm')]: {
+                alignItems: 'flex-start'
+              }
+            })}>
+            <Stack
+              direction="column"
+              alignItems="center"
+              spacing={4}
+              maxWidth="380px"
+              sx={{ marginTop: '40px!important', marginBottom: '40px!important' }}>
+              <Image src={ExistedImg} alt="existing repository" width={240} height={154} />
+              <Stack direction="column" alignItems="center">
+                <Typography variant="h5" gutterBottom>
+                  Đồng bộ với repository có sẵn
+                </Typography>
+                <Typography align="center">
+                  Hãy để trình tạo logo hỗ trợ AI của chúng tôi đọc và đồng bộ những phần còn thiếu
+                  so với template.
+                </Typography>
+              </Stack>
+              <DarkenButton sx={{ borderRadius: '100px' }} variant="contained" size="large">
+                Đồng bộ repository
+              </DarkenButton>
+            </Stack>
+          </Stack>
+        </Grid>
+      </Grid>
       {generating && (
         <TemplateCreateDialog
           open={true}
