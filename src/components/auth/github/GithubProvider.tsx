@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/store';
-import { createGithubClient, setGithubAccessToken } from 'src/components/auth/github/githubSlice';
+import { setGithubAccessToken } from 'src/components/auth/github/githubSlice';
 import Cookies from 'js-cookie';
 
 export const GithubProvider: FC = (props) => {
@@ -12,7 +12,6 @@ export const GithubProvider: FC = (props) => {
 
   useEffect(() => {
     dispatch(setGithubAccessToken(githubAccessToken));
-    dispatch(createGithubClient());
   }, [dispatch, githubAccessToken]);
 
   return <>{props.children}</>;
