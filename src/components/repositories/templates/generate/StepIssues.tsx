@@ -55,7 +55,7 @@ export const StepIssues = ({
             <SelectIssues {...methods} issues={issues} height="50vh" overflow="auto" />
           )}
         />
-        <Stack direction="row" spacing={3}>
+        <Stack direction={{ sm: 'row', xs: 'column-reverse' }} spacing={3} width={1}>
           <Button
             disabled={creating || !isValid}
             variant="contained"

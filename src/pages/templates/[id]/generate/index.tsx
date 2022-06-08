@@ -20,7 +20,17 @@ const TemplateGeneratePage = () => {
   const router = useRouter();
 
   return (
-    <Stack direction="column" width={1} alignItems="center" mt="150px" spacing={10}>
+    <Stack
+      direction="column"
+      width={1}
+      alignItems="center"
+      mt={{
+        xs: '100px',
+        sm: '150px'
+      }}
+      spacing={{
+        sm: 10
+      }}>
       <Typography>Chọn cách bạn muốn áp dụng template:</Typography>
       <Grid container>
         <Grid item sm={5} xs={12}>

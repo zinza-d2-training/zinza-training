@@ -23,7 +23,7 @@ export const StepNaming = ({ currentStep, onNext, onPrevious }: StepOnBoardingPr
         control={control}
         render={({ field }) => <TextField fullWidth variant="outlined" size="medium" {...field} />}
       />
-      <Stack direction="row" spacing={3}>
+      <Stack direction={{ sm: 'row', xs: 'column-reverse' }} spacing={3} width={1}>
         <Button
           variant="contained"
           size="large"

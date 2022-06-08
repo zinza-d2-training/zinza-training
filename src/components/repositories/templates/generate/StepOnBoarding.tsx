@@ -13,7 +13,7 @@ export interface StepOnBoardingProps {
 export const StepOnBoarding = ({ currentStep, onNext, onPrevious }: StepOnBoardingProps) => {
   return (
     <Stack width={1} direction="column" spacing={3} alignItems="flex-start">
-      <Typography variant="h4">
+      <Typography sx={{ typography: { sm: 'h4', xs: 'h5' } }}>
         Hãy để Trình Tạo Repository AI của chúng tôi tạo ra phép màu
       </Typography>
       <Typography>Chỉ với 3 bước đơn giản để tạo 1 repository từ template:</Typography>
