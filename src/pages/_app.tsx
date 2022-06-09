@@ -16,6 +16,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { setReactQueryLogger } from 'src/libs/react-query';
 import { CookieProvider } from 'src/components/cookie/CookieProvider';
 import { useState } from 'react';
+import * as React from 'react';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -46,6 +47,7 @@ function MyApp(props: AppPropsWithLayout) {
               <GithubProvider>
                 <CacheProvider value={emotionCache}>
                   <Head>
+                    <title>Zinza Training</title>
                     <meta name="viewport" content="initial-scale=1, width=device-width" />
                   </Head>
                   <ThemeProvider theme={theme}>
