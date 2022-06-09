@@ -3,9 +3,14 @@ import { HomePage } from '../components/home/HomePage';
 import { NextPageContext } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { fetchRepositoryTemplateConfig } from 'src/api/repositories/templates';
+import { AppLayout } from 'src/components/layouts/AppLayout';
 
 const Home: NextPage = () => {
-  return <HomePage />;
+  return (
+    <AppLayout>
+      <HomePage />
+    </AppLayout>
+  );
 };
 
 export default Home;

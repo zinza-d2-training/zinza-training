@@ -1,7 +1,11 @@
 import { FC } from 'react';
-import { Box } from '@mui/system';
+import { Box } from '@mui/material';
 import { Header } from '../header/Header';
-import { NotificationGroup } from 'src/components/notification/NotificationGroup';
+import dynamic from 'next/dynamic';
+
+const NotificationGroup = dynamic<{}>(() =>
+  import('src/components/notification/NotificationGroup').then((comp) => comp.NotificationGroup)
+);
 
 export const AppLayout: FC = ({ children }) => {
   return (

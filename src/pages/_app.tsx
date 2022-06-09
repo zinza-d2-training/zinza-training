@@ -6,7 +6,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { theme } from 'src/theme/theme';
 import { createEmotionCache } from 'src/utils/createEmotionCache';
-import { AppLayout } from '../components/layouts/AppLayout';
 import type { NextPage } from 'next';
 import { Provider } from 'react-redux';
 import { store } from 'src/store';
@@ -16,6 +15,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { setReactQueryLogger } from 'src/libs/react-query';
 import { CookieProvider } from 'src/components/cookie/CookieProvider';
 import { useState } from 'react';
+import * as React from 'react';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -33,7 +33,7 @@ type AppPropsWithLayout = AppProps & {
 function MyApp(props: AppPropsWithLayout) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, cookie } = props;
   const [queryClient] = useState(() => new QueryClient());
-  const getLayout = Component.getLayout ?? ((page) => <AppLayout>{page}</AppLayout>);
+  const getLayout = Component.getLayout ?? ((page) => <>{page}</>);
 
   setReactQueryLogger();
 
@@ -46,6 +46,7 @@ function MyApp(props: AppPropsWithLayout) {
               <GithubProvider>
                 <CacheProvider value={emotionCache}>
                   <Head>
+                    <title>Zinza Training</title>
                     <meta name="viewport" content="initial-scale=1, width=device-width" />
                   </Head>
                   <ThemeProvider theme={theme}>

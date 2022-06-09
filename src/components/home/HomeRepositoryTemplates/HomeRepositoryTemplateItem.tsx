@@ -1,4 +1,6 @@
 import {
+  Box,
+  BoxProps,
   CircularProgress,
   Icon,
   IconButton,
@@ -8,7 +10,6 @@ import {
   Typography
 } from '@mui/material';
 import Image from 'next/image';
-import { Box, BoxProps } from '@mui/system';
 import { useMemo } from 'react';
 import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types';
 import TemplateIcon from 'src/assets/svg/svgexport-14.svg';
@@ -66,7 +67,11 @@ export const HomeRepositoryTemplateItem = ({
                 height="36"
               />
               <Tooltip title="Repository">
-                <IconButton component={Link} href={repository.html_url} target="_blank">
+                <IconButton
+                  component={Link}
+                  href={repository.html_url}
+                  target="_blank"
+                  aria-label="Github">
                   <GitHubIcon htmlColor="white" />
                 </IconButton>
               </Tooltip>

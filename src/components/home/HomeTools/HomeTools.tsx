@@ -1,5 +1,4 @@
-import { Grid, Stack } from '@mui/material';
-import { Box } from '@mui/system';
+import { Box, Grid, Stack } from '@mui/material';
 import GenerateIcon from 'src/assets/svg/svgexport-24.svg';
 import ReGenerateIcon from 'src/assets/svg/svgexport-18.svg';
 import ProtectIcon from 'src/assets/svg/svgexport-20.svg';

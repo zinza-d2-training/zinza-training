@@ -1,6 +1,5 @@
-import { Stack, Typography } from '@mui/material';
+import { Box, BoxProps, Stack, Typography } from '@mui/material';
 import Image, { ImageProps } from 'next/image';
-import { Box, BoxProps } from '@mui/system';
 
 export interface HomeToolItemProps extends BoxProps {
   icon: ImageProps['src'];

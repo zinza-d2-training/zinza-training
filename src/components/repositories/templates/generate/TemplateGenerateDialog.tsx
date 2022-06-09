@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Dialog,
   DialogContent,
@@ -10,7 +11,6 @@ import {
 } from '@mui/material';
 import Image from 'next/image';
 import BackgroundImage from 'src/assets/templates/generate/create-dialog-img.webp';
-import { Box } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
 import { FormProvider, useForm } from 'react-hook-form';
 import { StepOnBoarding } from 'src/components/repositories/templates/generate/StepOnBoarding';
@@ -18,14 +18,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { StepNaming } from 'src/components/repositories/templates/generate/StepNaming';
 import { StepIssues } from 'src/components/repositories/templates/generate/StepIssues';
 import { TemplateCreateFormData } from 'src/components/repositories/templates/generate/types';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types';
 import sortBy from 'lodash/sortBy';
 import { ProcessingProps } from 'src/components/repositories/templates/generate/Processing';
 import { delay } from 'src/utils/common';
 import { useNotify } from 'src/components/notification/hooks';
-import { useOctokitRequest } from 'src/libs/octokit';
+import { useOctokitRequest } from 'src/libs/octokit/client';
+import { array, number, object, string } from 'yup';
 
 export enum TemplateCreateStep {
   OnBoarding = 'OnBoarding',
@@ -60,12 +60,10 @@ export const TemplateCreateDialog = ({
   const methods = useForm<TemplateCreateFormData>({
     mode: 'onChange',
     resolver: yupResolver(
-      yup
-        .object({
-          repositoryName: yup.string().required(),
-          issueIds: yup.array(yup.number().required()).required()
-        })
-        .required()
+      object({
+        repositoryName: string().required(),
+        issueIds: array(number().required()).required()
+      }).required()
     ),
     defaultValues: {
       repositoryName: '',
@@ -238,7 +236,7 @@ export const TemplateCreateDialog = ({
             flex={1}
             position="relative">
             <Box position="absolute" top={12} right={12} onClick={onClose}>
-              <IconButton>
+              <IconButton aria-label="Close">
                 <CloseIcon />
               </IconButton>
             </Box>
