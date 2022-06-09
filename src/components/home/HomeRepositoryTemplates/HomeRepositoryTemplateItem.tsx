@@ -66,7 +66,11 @@ export const HomeRepositoryTemplateItem = ({
                 height="36"
               />
               <Tooltip title="Repository">
-                <IconButton component={Link} href={repository.html_url} target="_blank">
+                <IconButton
+                  component={Link}
+                  href={repository.html_url}
+                  target="_blank"
+                  aria-label="Github">
                   <GitHubIcon htmlColor="white" />
                 </IconButton>
               </Tooltip>

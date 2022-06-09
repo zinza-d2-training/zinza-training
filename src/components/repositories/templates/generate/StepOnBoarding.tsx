@@ -19,7 +19,7 @@ export const StepOnBoarding = ({ currentStep, onNext, onPrevious }: StepOnBoardi
       <Typography>Chỉ với 3 bước đơn giản để tạo 1 repository từ template:</Typography>
       <Stack direction="column" spacing={1}>
         <Stack direction="row" alignItems="center" spacing={2}>
-          <IconButton sx={{ backgroundColor: '#dde1e6' }}>
+          <IconButton sx={{ backgroundColor: '#dde1e6' }} aria-label="Name">
             <DriveFileRenameOutlineRoundedIcon htmlColor="#9da3a9" />
           </IconButton>
           <Typography>
@@ -31,7 +31,7 @@ export const StepOnBoarding = ({ currentStep, onNext, onPrevious }: StepOnBoardi
           </Typography>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={2}>
-          <IconButton sx={{ backgroundColor: '#dde1e6' }}>
+          <IconButton sx={{ backgroundColor: '#dde1e6' }} aria-label="Issues">
             <BugReportRoundedIcon htmlColor="#9da3a9" />
           </IconButton>
           <Typography>Chọn các issues sẽ khởi tạo</Typography>

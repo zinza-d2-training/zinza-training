@@ -236,7 +236,7 @@ export const TemplateCreateDialog = ({
             flex={1}
             position="relative">
             <Box position="absolute" top={12} right={12} onClick={onClose}>
-              <IconButton>
+              <IconButton aria-label="Close">
                 <CloseIcon />
               </IconButton>
             </Box>

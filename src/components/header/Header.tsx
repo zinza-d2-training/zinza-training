@@ -100,7 +100,7 @@ export const Header = () => {
         )}
         {!matches && (
           <Stack justifyContent="center" ml={1}>
-            <IconButton onClick={handleOpenDrawer}>
+            <IconButton onClick={handleOpenDrawer} aria-label="Open menu">
               <MenuIcon />
             </IconButton>
             <SwipeableDrawer
@@ -112,7 +112,7 @@ export const Header = () => {
               <Stack spacing={2}>
                 <List disablePadding>
                   <ListItem disablePadding>
-                    <ListItemButton onClick={handleCloseDrawer}>
+                    <ListItemButton onClick={handleCloseDrawer} aria-label="React">
                       <PrimaryMenuItem
                         fontWeight="400"
                         content="React Training"
@@ -124,7 +124,7 @@ export const Header = () => {
                   </ListItem>
                   <Divider />
                   <ListItem disablePadding>
-                    <ListItemButton onClick={handleCloseDrawer}>
+                    <ListItemButton onClick={handleCloseDrawer} aria-label="Vue">
                       <PrimaryMenuItem
                         fontWeight="400"
                         content="Vue Training"
@@ -136,7 +136,7 @@ export const Header = () => {
                   </ListItem>
                   <Divider />
                   <ListItem disablePadding>
-                    <ListItemButton onClick={handleCloseDrawer}>
+                    <ListItemButton onClick={handleCloseDrawer} aria-label="Angular">
                       <PrimaryMenuItem
                         fontWeight="400"
                         content="Angular Training"

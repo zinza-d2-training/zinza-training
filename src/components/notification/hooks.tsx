@@ -25,7 +25,10 @@ export const useNotify = () => {
           notification: {
             content: 'Ok!',
             action: (
-              <IconButton size="small" onClick={() => dispatch(removeNotification(id))}>
+              <IconButton
+                size="small"
+                onClick={() => dispatch(removeNotification(id))}
+                aria-label="Close">
                 <CloseIcon />
               </IconButton>
             ),
