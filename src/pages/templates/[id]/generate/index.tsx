@@ -3,9 +3,16 @@ import CreateNewImg from 'src/assets/templates/generate/create-new.webp';
 import ExistedImg from 'src/assets/templates/generate/existed.webp';
 import Image from 'next/image';
 import { grey } from '@mui/material/colors';
-import { TemplateCreateDialog } from 'src/components/repositories/templates/generate/TemplateGenerateDialog';
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { TemplateGenerateDialogProps } from 'src/components/repositories/templates/generate/TemplateGenerateDialog';
+
+const TemplateCreateDialog = dynamic<TemplateGenerateDialogProps>(() =>
+  import('src/components/repositories/templates/generate/TemplateGenerateDialog').then(
+    (comp) => comp.TemplateCreateDialog
+  )
+);
 
 export const DarkenButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(theme.palette.common.black),

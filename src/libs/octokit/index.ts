@@ -1,1 +1,2 @@
-export * from './octokit';
+export * from './admin';
+export * from './client';

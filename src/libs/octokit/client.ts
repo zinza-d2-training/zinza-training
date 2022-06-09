@@ -1,14 +1,7 @@
-import { Octokit } from 'octokit';
 import { useAppSelector } from 'src/store';
+import { useMemo } from 'react';
 import { createOAuthUserAuth } from '@octokit/auth-app';
 import { request } from '@octokit/request';
-import { useMemo } from 'react';
-
-export const createGithubAdminClient = () => {
-  return new Octokit({
-    auth: process.env.GITHUB_PERSONAL_ACCESS_TOKEN
-  });
-};
 
 export const useOctokitRequest = () => {
   const githubAccessToken = useAppSelector((state) => state.github.githubAccessToken);
