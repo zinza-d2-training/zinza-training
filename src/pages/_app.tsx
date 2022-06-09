@@ -6,7 +6,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { theme } from 'src/theme/theme';
 import { createEmotionCache } from 'src/utils/createEmotionCache';
-import { AppLayout } from '../components/layouts/AppLayout';
 import type { NextPage } from 'next';
 import { Provider } from 'react-redux';
 import { store } from 'src/store';
@@ -34,7 +33,7 @@ type AppPropsWithLayout = AppProps & {
 function MyApp(props: AppPropsWithLayout) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, cookie } = props;
   const [queryClient] = useState(() => new QueryClient());
-  const getLayout = Component.getLayout ?? ((page) => <AppLayout>{page}</AppLayout>);
+  const getLayout = Component.getLayout ?? ((page) => <>{page}</>);
 
   setReactQueryLogger();
 

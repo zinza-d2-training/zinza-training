@@ -1,23 +1,17 @@
 import Link from 'next/link';
-import {
-  Box,
-  Button,
-  Divider,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  Stack,
-  SwipeableDrawer,
-  useMediaQuery,
-  useTheme
-} from '@mui/material';
+import { Box, Button, IconButton, Stack, useMediaQuery, useTheme } from '@mui/material';
 import { PrimaryMenuItem } from './PrimaryMenuItem';
 import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { useAppSelector } from 'src/store';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+import { MobileDrawerProps } from 'src/components/header/MobileDrawer';
+
+const MobileDrawer = dynamic<MobileDrawerProps>(() =>
+  import('src/components/header/MobileDrawer').then((comp) => comp.MobileDrawer)
+);
 
 export const Header = () => {
   const router = useRouter();
@@ -104,53 +98,13 @@ export const Header = () => {
             <IconButton onClick={handleOpenDrawer} aria-label="Open menu">
               <MenuIcon />
             </IconButton>
-            <SwipeableDrawer
+            <MobileDrawer
               disableBackdropTransition={!iOS}
               disableDiscovery={iOS}
               open={openDrawer}
               onClose={handleCloseDrawer}
-              onOpen={handleOpenDrawer}>
-              <Stack spacing={2}>
-                <List disablePadding>
-                  <ListItem disablePadding>
-                    <ListItemButton onClick={handleCloseDrawer} aria-label="React">
-                      <PrimaryMenuItem
-                        fontWeight="400"
-                        content="React Training"
-                        href="/training/react"
-                        textTransform="none"
-                        active={router.pathname === '/training/react'}
-                      />
-                    </ListItemButton>
-                  </ListItem>
-                  <Divider />
-                  <ListItem disablePadding>
-                    <ListItemButton onClick={handleCloseDrawer} aria-label="Vue">
-                      <PrimaryMenuItem
-                        fontWeight="400"
-                        content="Vue Training"
-                        href="/training/vue"
-                        textTransform="none"
-                        active={router.pathname === '/training/vue'}
-                      />
-                    </ListItemButton>
-                  </ListItem>
-                  <Divider />
-                  <ListItem disablePadding>
-                    <ListItemButton onClick={handleCloseDrawer} aria-label="Angular">
-                      <PrimaryMenuItem
-                        fontWeight="400"
-                        content="Angular Training"
-                        href="/training/angular"
-                        textTransform="none"
-                        active={router.pathname === '/training/angular'}
-                      />
-                    </ListItemButton>
-                  </ListItem>
-                  <Divider />
-                </List>
-              </Stack>
-            </SwipeableDrawer>
+              onOpen={handleOpenDrawer}
+            />
           </Stack>
         )}
       </Stack>

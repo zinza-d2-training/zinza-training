@@ -1,10 +1,11 @@
-import { Box, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import { AppLayout } from 'src/components/layouts/AppLayout';
 
 const ReactTraining = () => {
   return (
-    <Box>
+    <AppLayout>
       <Typography>Angular</Typography>
-    </Box>
+    </AppLayout>
   );
 };
 

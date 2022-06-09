@@ -1,7 +1,7 @@
-import { Box } from '@mui/material';
+import { AppLayout } from 'src/components/layouts/AppLayout';
 
 const TemplatePage = () => {
-  return <Box>OK</Box>;
+  return <AppLayout>OK</AppLayout>;
 };
 
 export default TemplatePage;
