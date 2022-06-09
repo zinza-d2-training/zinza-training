@@ -1,6 +1,5 @@
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { ReactNode, useMemo } from 'react';
-import { Box } from '@mui/system';
 
 type ProcessingContent = NonNullable<ReactNode>[];
 

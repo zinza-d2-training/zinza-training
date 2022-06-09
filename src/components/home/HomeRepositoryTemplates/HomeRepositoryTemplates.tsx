@@ -1,5 +1,4 @@
-import { Grid, Stack, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import { useMemo } from 'react';
 import {
   HomeRepositoryTemplateItem,

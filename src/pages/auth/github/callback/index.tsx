@@ -1,4 +1,4 @@
-import { Box } from '@mui/system';
+import { Box } from '@mui/material';
 import { NextPageContext } from 'next';
 import { setCookie } from 'src/utils/cookies';
 import { fetchGithubAccessToken } from 'src/api/auth/github/callback';

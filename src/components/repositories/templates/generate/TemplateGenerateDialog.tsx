@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Dialog,
   DialogContent,
@@ -10,7 +11,6 @@ import {
 } from '@mui/material';
 import Image from 'next/image';
 import BackgroundImage from 'src/assets/templates/generate/create-dialog-img.webp';
-import { Box } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
 import { FormProvider, useForm } from 'react-hook-form';
 import { StepOnBoarding } from 'src/components/repositories/templates/generate/StepOnBoarding';
@@ -25,7 +25,7 @@ import { ProcessingProps } from 'src/components/repositories/templates/generate/
 import { delay } from 'src/utils/common';
 import { useNotify } from 'src/components/notification/hooks';
 import { useOctokitRequest } from 'src/libs/octokit/client';
-import { string, object, array, number } from 'yup';
+import { array, number, object, string } from 'yup';
 
 export enum TemplateCreateStep {
   OnBoarding = 'OnBoarding',

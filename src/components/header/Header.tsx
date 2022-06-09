@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import {
+  Box,
   Button,
   Divider,
   IconButton,
@@ -8,11 +9,11 @@ import {
   ListItemButton,
   Stack,
   SwipeableDrawer,
-  useMediaQuery
+  useMediaQuery,
+  useTheme
 } from '@mui/material';
 import { PrimaryMenuItem } from './PrimaryMenuItem';
 import { useMemo, useState } from 'react';
-import { Box, useTheme } from '@mui/system';
 import Image from 'next/image';
 import { useAppSelector } from 'src/store';
 import MenuIcon from '@mui/icons-material/Menu';

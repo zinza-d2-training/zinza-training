@@ -1,5 +1,4 @@
-import { Box } from '@mui/system';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const ReactTraining = () => {
   return (
