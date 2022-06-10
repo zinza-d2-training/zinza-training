@@ -13,7 +13,7 @@ jobs:
         with:
           repository: 'aws/aws-elastic-beanstalk-cli-setup'
           path: 'aws-elastic-beanstalk-cli-setup'
-          branch: 'master'
+          ref: 'master'
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
