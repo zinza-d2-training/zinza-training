@@ -23,6 +23,7 @@ jobs:
           ECR_REPOSITORY: zinza-training
           IMAGE_TAG: production
         run: |
+          echo "${{ secrets.ENV_CLIENT_PRODUCTION }}" > .env
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f docker/production/Dockerfile .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo ::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
