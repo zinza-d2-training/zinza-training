@@ -5,7 +5,7 @@
   "containerDefinitions": [
     {
       "name": "zinza-training-client",
-      "image": "109846724001.dkr.ecr.ap-southeast-1.amazonaws.com/zinza-training:latest",
+      "image": "109846724001.dkr.ecr.ap-southeast-1.amazonaws.com/zinza-training:production",
       "environment": [
       ],
       "memoryReservation": 256,
