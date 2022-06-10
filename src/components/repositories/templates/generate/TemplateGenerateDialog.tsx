@@ -104,7 +104,7 @@ export const TemplateCreateDialog = ({
           <Typography key={state.length}>{`Created repository ${repositoryName}`}</Typography>
         ]);
         for (const issue of _issues) {
-          await requestWithAuth('', {
+          await requestWithAuth('POST /repos/{owner}/{repo}/issues', {
             owner: process.env.NEXT_PUBLIC_ORG ?? '',
             repo: repositoryName,
             title: issue.title,
