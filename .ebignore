@@ -1,2 +1,2 @@
-docker-compose.yml
-.git
+**/*
+!Dockerrun.aws.json
