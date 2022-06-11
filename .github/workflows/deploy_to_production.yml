@@ -1,0 +1,39 @@
+name: Deploy to production
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Elastic Beanstalk CLI repository
+        uses: actions/checkout@v3
+        with:
+          repository: 'aws/aws-elastic-beanstalk-cli-setup'
+          path: 'aws-elastic-beanstalk-cli-setup'
+          ref: 'master'
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install virtualenv
+        run: pipx install virtualenv
+        shell: bash
+      - name: Install Elastic Beanstalk CLI
+        run: python $GITHUB_WORKSPACE/aws-elastic-beanstalk-cli-setup/scripts/ebcli_installer.py
+        shell: bash
+      - name: Export CLI path
+        run: echo "~/.ebcli-virtual-env/executables" >> $GITHUB_PATH
+        shell: bash
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-southeast-1
+      - name: Elastic Beanstalk init
+        run: eb init zinza-training -p "ECS running on 64bit Amazon Linux 2" --region "ap-southeast-1"
+      - name: Elastic Beanstalk deploy
+        run: eb deploy zinza-training-production
