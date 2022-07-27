@@ -13,9 +13,7 @@ export interface StepOnBoardingProps {
 export const StepOnBoarding = ({ currentStep, onNext, onPrevious }: StepOnBoardingProps) => {
   return (
     <Stack width={1} direction="column" spacing={3} alignItems="flex-start">
-      <Typography sx={{ typography: { sm: 'h4', xs: 'h5' } }}>
-        Hãy để Trình Tạo Repository AI của chúng tôi tạo ra phép màu
-      </Typography>
+      <Typography sx={{ typography: { sm: 'h4', xs: 'h5' } }}>Trình Tạo Repository</Typography>
       <Typography>Chỉ với 3 bước đơn giản để tạo 1 repository từ template:</Typography>
       <Stack direction="column" spacing={1}>
         <Stack direction="row" alignItems="center" spacing={2}>
@@ -23,7 +21,7 @@ export const StepOnBoarding = ({ currentStep, onNext, onPrevious }: StepOnBoardi
             <DriveFileRenameOutlineRoundedIcon htmlColor="#9da3a9" />
           </IconButton>
           <Typography>
-            Chọn 1 cái tên đẹp (
+            Chọn 1 cái tên (
             <Typography component="span" variant="body2" fontStyle="italic">
               nana-react
             </Typography>
