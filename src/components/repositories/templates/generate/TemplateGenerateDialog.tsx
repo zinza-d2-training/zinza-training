@@ -26,6 +26,7 @@ import { delay } from 'src/utils/common';
 import { useNotify } from 'src/components/notification/hooks';
 import { useOctokitRequest } from 'src/libs/octokit/client';
 import { array, number, object, string } from 'yup';
+import { omit } from 'lodash';
 
 export enum TemplateCreateStep {
   OnBoarding = 'OnBoarding',
@@ -78,6 +79,10 @@ export const TemplateCreateDialog = ({
       owner: process.env.NEXT_PUBLIC_ORG ?? '',
       repo: repositoryName
     });
+    const _milestones = await requestWithAuth('GET /repos/{owner}/{repo}/milestones', {
+      owner: process.env.NEXT_PUBLIC_ORG ?? '',
+      repo: repositoryName
+    });
     setIssues(sortBy(_issues.data, 'id'));
   }, [repositoryName, requestWithAuth]);
 
@@ -108,7 +113,10 @@ export const TemplateCreateDialog = ({
             owner: process.env.NEXT_PUBLIC_ORG ?? '',
             repo: repositoryName,
             title: issue.title,
-            body: issue.body ?? undefined
+            body: issue.body ?? undefined,
+            labels: issue.labels
+              .filter((label) => typeof label === 'string' || label.name)
+              .map((label) => (typeof label === 'string' ? label : label.name!!))
           });
           setCreatingProcess((state) => [
             ...state,
