@@ -34,8 +34,8 @@ export const HomeRepositoryTemplateItem = ({
   });
 
   const repositoryTemplateConfig = useMemo(() => {
-    return repositoryTemplatesData?.data;
-  }, [repositoryTemplatesData?.data]);
+    return repositoryTemplatesData?.data?.data;
+  }, [repositoryTemplatesData?.data?.data]);
 
   return (
     <Box

@@ -1,4 +1,3 @@
-import { githubRawContentUrl } from 'src/components/home/HomeTools/functions';
 import { createAxiosInstance } from 'src/components/axios/functions';
 import { RepositoryTemplateConfig } from 'src/components/Parsers/TemplateConfigParser';
 import { useQuery } from 'react-query';
@@ -12,13 +11,13 @@ export const fetchRepositoryTemplateConfig = ({
   repositoryName,
   repositoryBranch
 }: RepositoryTemplateConfigQueryVariables) => {
-  return createAxiosInstance().get<RepositoryTemplateConfig>(
-    githubRawContentUrl({
-      owner: process.env.NEXT_PUBLIC_ORG ?? '',
+  return createAxiosInstance().post<{ data: RepositoryTemplateConfig }>(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/github/file-content`,
+    {
       repositoryName,
       repositoryBranch,
-      filePath: 'training-template.json'
-    })
+      path: 'training-template.json'
+    }
   );
 };
 
